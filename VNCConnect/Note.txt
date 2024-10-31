@@ -50,3 +50,6 @@ Tool support connect tightVNC
 	- add even mouse double click
 	- mouse left double click open sharing disk D$
 	- mouse Right double click open sharing disk C$
+
+31/10/2024
+	- add check ping before send command control PC

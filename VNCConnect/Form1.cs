@@ -249,8 +249,9 @@ namespace VNCConnect
             // Start the TightVNC Viewer
             string strPort = "5900";
             string windowTitle = $"{remoteHost}::{strPort} - TightVNC Viewer";
-            // if (bCheckWebRev(remoteHost) || bCheckPing(remoteHost))
-            if (bCheckWebRev(remoteHost))
+
+            //if (bCheckWebRev(remoteHost))
+            if (bCheckWebRev(remoteHost) || bCheckPing(remoteHost))
             {
                 IntPtr hWnd;
                 for (int i = 0; i < listPassword.Count; i++)
@@ -1289,7 +1290,6 @@ namespace VNCConnect
             }
 
             int re = WNetCancelConnection2(ftpServer.SmbPath, 0, true);
-
             Process.Start("explorer.exe", ftpServer.SmbPath);
             return "OK";
         }
@@ -1329,7 +1329,7 @@ namespace VNCConnect
                 uint returnValue = (uint)outParams["returnValue"];
                 if (returnValue == 0)
                 {
-                    Console.WriteLine("Shutdown command executed successfully.");
+                    Console.WriteLine("executing command executed successfully.");
                 }
                 else
                 {
@@ -1600,7 +1600,14 @@ namespace VNCConnect
             {
                 if (IsValidIPv4(sIP))
                 {
-                    ControlPC(button, sCommand, sAction);
+                    if (bCheckPing(sIP))
+                    {
+                        ControlPC(button, sCommand, sAction);
+                    }
+                    else
+                    {
+                        SetTextControl(lbStatus, $"Ip Request timed out.", Color.Red);
+                    }
                 }
                 else
                 {
