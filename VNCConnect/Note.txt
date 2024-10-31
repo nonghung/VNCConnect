@@ -1,0 +1,52 @@
+﻿
+Tool support connect tightVNC 
+12/08/2024
+	- Start create project
+	- Create UI COnnect by IP
+
+10/9/2024
+	- add UI get IP from PN use database
+	- add click enter to connect vnc
+	- add password 123abc@ to connect VNC
+03/10/2024
+	- Fix connect VNC wrong password and auto close
+	- Change get IP form database to SFCS service
+	- add check only SE member can use
+16/10/2014
+	- Add new dtGridViewFail list all ip ping fail
+	- resize form main to small and auto resize after click load by model name or seach
+17/10/2024
+	- Add auto update new version
+	- Add new form Mess
+	- Fix after load path number add spec in station
+	- Add select sql ORDER BY t.STATION ASC
+18/10/2024
+	- Fix start position
+22/10/2024
+	- add connect SMB button
+	- add function connectSmb
+	- add double click to open smb in data gridview
+	- have bug other PC can't not open SMB
+	- add button delete List model
+24/10/2024
+	- add control other pc by lan
+	- add control other pc enable share by lan
+	- add reset password vnc to 123abc@ by lan
+	- add reset other ps by lan.
+	- add button Disable windows defender
+	- add button Reset VNC PW
+25/10/2024
+	- add enable remote desktop other pc by lan ip
+	- add disable remote desktop other pc by lan ip
+	- add enable usb other pc by lan ip
+	- add disable usb other pc by lan ip
+	- Update add new BU 
+	- Add Help.pdf using tool
+29/10/2024
+	- add button enable telnet 
+	- group all even click of control pc to one even
+
+30/10/2024
+	- add even mouse double click
+	- mouse left double click open sharing disk D$
+	- mouse Right double click open sharing disk C$

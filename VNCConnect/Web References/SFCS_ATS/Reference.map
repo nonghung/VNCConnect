@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://v2haproxy_vip.wneweb.com.tw:100/sfcs_webservice/ats.asmx?wsdl" filename="ats.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://v2haproxy_vip.wneweb.com.tw:100/sfcs_webservice/ats.asmx?disco" filename="ats.disco" />
+  </Results>
+</DiscoveryClientResultsFile>

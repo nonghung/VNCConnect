@@ -1,0 +1,11 @@
+D:\codeTool\VNCConnect\VNCConnect\bin\Debug\VNCConnect.exe.config
+D:\codeTool\VNCConnect\VNCConnect\bin\Debug\VNCConnect.exe
+D:\codeTool\VNCConnect\VNCConnect\bin\Debug\VNCConnect.pdb
+D:\codeTool\VNCConnect\VNCConnect\obj\Debug\VNCConnect.csproj.AssemblyReference.cache
+D:\codeTool\VNCConnect\VNCConnect\obj\Debug\VNCConnect.Form1.resources
+D:\codeTool\VNCConnect\VNCConnect\obj\Debug\VNCConnect.frmMessage.resources
+D:\codeTool\VNCConnect\VNCConnect\obj\Debug\VNCConnect.Properties.Resources.resources
+D:\codeTool\VNCConnect\VNCConnect\obj\Debug\VNCConnect.csproj.GenerateResource.cache
+D:\codeTool\VNCConnect\VNCConnect\obj\Debug\VNCConnect.csproj.CoreCompileInputs.cache
+D:\codeTool\VNCConnect\VNCConnect\obj\Debug\VNCConnect.exe
+D:\codeTool\VNCConnect\VNCConnect\obj\Debug\VNCConnect.pdb
