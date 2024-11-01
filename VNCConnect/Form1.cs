@@ -798,9 +798,9 @@ namespace VNCConnect
                     {
                         File.Delete(fileName + "x");
                     }
-                    //&& Environment.MachineName != ftpServer.deccode("VjItMi05LVEtMTExMTg=")
+                    //
                     FileVersionInfo fileInfo = FileVersionInfo.GetVersionInfo(sFileServer);
-                    if (!fileInfo.ProductVersion.Equals(Assembly.GetExecutingAssembly().GetName().Version.ToString()) )
+                    if (!fileInfo.ProductVersion.Equals(Assembly.GetExecutingAssembly().GetName().Version.ToString()) && Environment.MachineName != ftpServer.deccode("VjItMi05LVEtMTExMTg="))
                     {
                         File.Move(fileName, fileName + "x");
                         File.Copy(sFileServer, fileName, true);
