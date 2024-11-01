@@ -306,106 +306,6 @@ namespace VNCConnect
             }
             return result;
         }
-        private bool connectVNCbk(string strIP)
-        {
-
-            SetTextControl(lbStatus, "");
-            bool result = true;
-            // Path to the TightVNC Viewer executable
-            string tightVncViewerExe = @"tvnviewer.exe"; ; // Adjust the path as needed
-            string tightVncViewerPath = @"C:\Program Files\TightVNC\"; // Adjust the path as needed
-            if (!File.Exists(Path.Combine(tightVncViewerPath, tightVncViewerExe)))
-            {
-                tightVncViewerPath = "C:\\Program Files (x86)\\TightVNC";
-                if (!File.Exists(Path.Combine(tightVncViewerPath, tightVncViewerExe)))
-                {
-                    SetTextControl(lbStatus, "haven't TightVNC App", Color.Red);
-                    return false;
-                }
-            }
-            tightVncViewerExe = Path.Combine(tightVncViewerPath, tightVncViewerExe);
-
-            // IP address or hostname of the remote server
-            string remoteHost = strIP;//"10.163.113.51"; // Replace with the actual IP address
-
-            // Optional: Password for the remote server
-            string password = "123abc@"; // Replace with the actual password
-            string password0 = "000000";
-            string passwordtest = "test";
-            // Start the TightVNC Viewer
-            string strPort = "5900";
-            string windowTitle = $"{remoteHost}::{strPort} - TightVNC Viewer";
-            string Arguments = $"{remoteHost}::{strPort} -password={password} -useclipboard=yes -scale=auto";
-            if (bCheckWebRev(remoteHost) || bCheckPing(remoteHost))
-            {
-                Thread thread = new Thread((ThreadStart)delegate
-                {
-                    ExecuteCmdResult(tightVncViewerExe, Arguments, tightVncViewerPath);
-                });
-                thread.IsBackground = true;
-                thread.Start();
-                Thread.Sleep(500);
-
-                IntPtr hWnd = FindWindow(null, windowTitle);
-                if (hWnd != IntPtr.Zero)
-                {
-                    //Console.WriteLine("Cửa sổ đã tìm thấy!");
-                    // Thực hiện các thao tác khác với cửa sổ nếu cần
-                    // Send the close message
-                    SendMessage(hWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                    Thread.Sleep(100);
-                    Arguments = $"{remoteHost}::{strPort} -password={password0}";
-                    windowTitle = $"{remoteHost}::{strPort} - TightVNC Viewer";
-                    Thread thread1 = new Thread((ThreadStart)delegate
-                    {
-                        ExecuteCmdResult(tightVncViewerExe, Arguments, tightVncViewerPath);
-                    });
-                    thread1.IsBackground = true;
-                    thread1.Start();
-                    Thread.Sleep(500);
-
-                    if (hWnd != IntPtr.Zero)
-                    {
-                        //Console.WriteLine("Cửa sổ đã tìm thấy!");
-                        // Thực hiện các thao tác khác với cửa sổ nếu cần
-                        // Send the close message
-                        SendMessage(hWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                        Thread.Sleep(100);
-                        Arguments = $"{remoteHost}::{strPort} -password={passwordtest}";
-                        windowTitle = $"{remoteHost}::{strPort} - TightVNC Viewer";
-                        Thread thread2 = new Thread((ThreadStart)delegate
-                        {
-                            ExecuteCmdResult(tightVncViewerExe, Arguments, tightVncViewerPath);
-                        });
-                        thread2.IsBackground = true;
-                        thread2.Start();
-                        Thread.Sleep(700);
-
-                        if (hWnd != IntPtr.Zero)
-                        {
-                            //Console.WriteLine("Cửa sổ đã tìm thấy!");
-                            // Thực hiện các thao tác khác với cửa sổ nếu cần
-                            // Send the close message
-                            SendMessage(hWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                            SetTextControl(lbStatus, "Pasword fail", Color.Red);
-                            result = false;
-                        }
-                    }
-                }
-                hWnd = FindWindow(null, windowTitle);
-                if (hWnd != IntPtr.Zero)
-                {
-                    SendMessage(hWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                }
-            }
-            else
-            {
-                // SetTextControl(lbStatus, "Check ping Fail", Color.Red);
-                SetTextControl(lbStatus, "Check ping or Connect Web tightvnc Fail", Color.Red);
-                result = false;
-            }
-            return result;
-        }
 
         bool SetTextControl(Control control, string sText, Color colortext = default)
         {
@@ -841,11 +741,7 @@ namespace VNCConnect
                 string strIP = dvTableView.Rows[e.RowIndex].Cells["Station_IP"].Value.ToString();
                 connectVNC(strIP);
             }
-            //else if (e.ColumnIndex == 1 && e.RowIndex >= 0) // Assuming button column is at index 0
-            //{
-            //    string strIP = dvTableView.Rows[e.RowIndex].Cells["Station_IP"].Value.ToString();
-            //    connectVNC(strIP);
-            //}
+           
         }
         private void DataGridViewFail_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -876,6 +772,15 @@ namespace VNCConnect
             this.Width = iWidth;
             this.Height = iHeight;
         }
+        public bool OnlyOpenOneTime()
+        {
+            if (System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).GetUpperBound(0) > 0)
+            {
+                Environment.Exit(0);
+                return true;
+            }
+            return false;   
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             FormResize(316, 481);
@@ -893,14 +798,15 @@ namespace VNCConnect
                     {
                         File.Delete(fileName + "x");
                     }
-
+                    //&& Environment.MachineName != ftpServer.deccode("VjItMi05LVEtMTExMTg=")
                     FileVersionInfo fileInfo = FileVersionInfo.GetVersionInfo(sFileServer);
-                    if (!fileInfo.ProductVersion.Equals(Assembly.GetExecutingAssembly().GetName().Version.ToString()) && Environment.MachineName != ftpServer.deccode("VjItMi05LVEtMTExMTg="))
+                    if (!fileInfo.ProductVersion.Equals(Assembly.GetExecutingAssembly().GetName().Version.ToString()) )
                     {
                         File.Move(fileName, fileName + "x");
                         File.Copy(sFileServer, fileName, true);
                         frmMessage frmMessage = new frmMessage();
-                        frmMessage.ShowMessage("update new version finish, Please reopen App", MessageBoxButtons.OK);
+                        frmMessage.ShowMessage("update new version finish, Click OK to open App", MessageBoxButtons.OK);
+                        Process.Start(fileName);
                         //string sFtpPath = "/ToolBox/App/" + name.Replace(".exe", ".exx");
                         //ftpServer.FtpFileDownLoadApp(sFtpPath, fileName);
                         Environment.Exit(0);
@@ -908,7 +814,7 @@ namespace VNCConnect
                 }
             }
             catch { }
-
+           
             SetTextControl(lbStatus, "On Going load data", Color.Yellow);
             Thread thread = new Thread((ThreadStart)delegate
             {
@@ -917,6 +823,7 @@ namespace VNCConnect
                     Environment.Exit(0);
 
                 }
+                OnlyOpenOneTime();
                 ftpServer.Username = "Llx3bmM=";
                 ftpServer.Password = "d25jMDAwMDAw";
                 aTS = new SFCS_ATS.ATS();

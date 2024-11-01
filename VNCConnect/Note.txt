@@ -53,3 +53,7 @@ Tool support connect tightVNC
 
 31/10/2024
 	- add check ping before send command control PC
+
+01/11/2024
+	- add check only can open one app
+	- modify auto update, after download finish auto open app
